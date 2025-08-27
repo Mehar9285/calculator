@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Calculator;
 using System.ComponentModel;
 
 bool running = true;
@@ -19,52 +20,42 @@ num2 = double.Parse(Console.ReadLine());
     char operation = userinput.KeyChar;
  
     double result = 0;
-    double add(double num1, double num2)
-    {
-        return num1 + num2;
-
-    }
-    double subtract(double num1, double num2)
-    {
-        return num1 - num2;
-    }
-    double multiply(double num1, double num2)
-    {
-        return num1 * num2;
-    }
-    double divide(double num1, double num2)
-    {
-        return num1 / num2;
-    }
+   
+   
+   
+    
     switch (operation)
     {
         case '+':
-            result = add(num1, num2);
+             result = Addition.ToAdd(num1, num2);
             break;
         case '-':
-            result = subtract(num1, num2);
+            result = Subtraction.ToSubtract(num1, num2);
             break;
         case '*':
-            result = multiply(num1, num2);
+            result = Multiplication.ToMultiply(num1, num2);
             break;
         case '/':
-            if (num2 != 0)
+          
+                try
             {
-                result = divide(num1, num2);
+                result = Division.ToDivide(num1, num2);
+               
             }
-            else
+            catch (DivideByZeroException ex)
             {
-                Console.WriteLine("Error:Division by zero");
-                running = false;
+                Console.WriteLine(ex.Message);
             }
+                  
             break;
-        default:
+           default:
             Console.WriteLine("invalid operation");
+            running = false;
             break;
     }
             if (running)
             {
-                Console.WriteLine("Result:" + result);
+                Console.WriteLine("\n" + "Result:" + result);
             }
             Console.WriteLine("Enter 'Y' to continue or Enter 'N' to Exit");
             ConsoleKeyInfo option = Console.ReadKey();
